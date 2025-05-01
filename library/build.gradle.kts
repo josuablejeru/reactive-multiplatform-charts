@@ -8,8 +8,8 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-group = "io.github.kotlin"
-version = "1.0.0"
+group = "com.josuablejeru.reactive_multiplatform_charts"
+version = "0.1.0"
 
 kotlin {
     jvm()

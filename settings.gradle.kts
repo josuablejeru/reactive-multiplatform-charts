@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "multiplatform-library-template"
+rootProject.name = "reactive-multiplatform-charts"
 include(":library")
 include(":composeDemoApp")
