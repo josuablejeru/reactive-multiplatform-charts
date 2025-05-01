@@ -20,9 +20,6 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
     linuxX64()
 
     sourceSets {
@@ -31,6 +28,11 @@ kotlin {
                 implementation(libs.androidx.lifecycle.common)
                 implementation(libs.androidx.lifecycle.runtime.compose)
                 implementation(libs.androidx.lifecycle.viewmodel)
+                implementation(libs.compose.runtime)
+                implementation(libs.compose.foundation)
+                implementation(libs.compose.ui)
+                implementation(libs.compose.uiTooling)
+                implementation(libs.compose.material)
             }
         }
         val commonTest by getting {
