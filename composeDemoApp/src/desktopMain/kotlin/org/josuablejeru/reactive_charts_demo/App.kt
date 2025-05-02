@@ -1,13 +1,13 @@
 package org.josuablejeru.reactive_charts_demo
 
-import com.josuablejeru.reactive_multiplatform_charts.core.LineChart
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.josuablejeru.reactive_multiplatform_charts.charts.DataSeries
+import io.github.josuablejeru.reactive_multiplatform_charts.core.DataSeries
+import io.github.josuablejeru.reactive_multiplatform_charts.charts.LineChart
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
