@@ -9,8 +9,8 @@ plugins {
     alias(libs.plugins.vanniktech.mavenPublish)
 }
 
-group = "com.josuablejeru.reactive_multiplatform_charts"
-version = "0.1.0"
+group = "io.github.josuablejeru"
+version = "0.1.0-SNAPSHOT"
 
 kotlin {
     jvm()
@@ -21,8 +21,6 @@ kotlin {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
-    linuxX64()
-
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -34,6 +32,7 @@ kotlin {
                 implementation(libs.compose.ui)
                 implementation(libs.compose.uiTooling)
                 implementation(libs.compose.material)
+                implementation(libs.compose.material.desktop)
             }
         }
         val commonTest by getting {
@@ -45,7 +44,7 @@ kotlin {
 }
 
 android {
-    namespace = "org.jetbrains.kotlinx.multiplatform.library.template"
+    namespace = "io.github.josuablejeru"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
@@ -61,31 +60,27 @@ mavenPublishing {
 
     signAllPublications()
 
-    coordinates(group.toString(), "library", version.toString())
+    coordinates(group.toString(), "reactive-multiplatform-charts", version.toString())
 
     pom {
-        name = "My library"
-        description = "A library."
-        inceptionYear = "2024"
-        url = "https://github.com/kotlin/multiplatform-library-template/"
+        name = "Reactive Multiplatform Charts"
+        description = "Reactive Multiplatform Charts is a lightweight Kotlin Multiplatform library designed for real-time, reactive, and live-updating charts."
+        inceptionYear = "2025"
+        url = "https://github.com/josuablejeru/reactive-multiplatform-charts"
         licenses {
             license {
-                name = "XXX"
-                url = "YYY"
-                distribution = "ZZZ"
+                name = "The Apache License, Version 2.0"
+                url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
             }
         }
         developers {
             developer {
-                id = "XXX"
-                name = "YYY"
-                url = "ZZZ"
+                name = "Josua Blejeru"
+                email = "josua@blejeru.com"
             }
         }
         scm {
-            url = "XXX"
-            connection = "YYY"
-            developerConnection = "ZZZ"
+            url = "https://github.com/josuablejeru/reactive-multiplatform-charts.git"
         }
     }
 }

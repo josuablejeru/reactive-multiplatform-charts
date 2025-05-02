@@ -39,3 +39,9 @@ LineChart(
     visibleXRange = 600f
 )
 ```
+
+# Releasing
+
+- Set the `ANDROID_HOME` env variable.
+- Follow the setup guid from [gradle-maven-publish-plugin](https://vanniktech.github.io/gradle-maven-publish-plugin/central/#secrets)
+- execute `:library:publishAllPublicationsToMavenCentralRepository --no-configuration-cache`
