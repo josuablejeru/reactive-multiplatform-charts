@@ -12,6 +12,26 @@ Key Concepts:
 - Unopinionated: Bring your own data models, we just plot!
 - Reactive-first: Built around Flows for hot live data.
 
+## Setup
+Import the reactive-mulitplatform-charts with Gradle
+
+```kotlin
+// settings.gradle.kts
+dependencyResolutionManagement {
+    repositories {
+        // point to maven snapshots as currently no releases are available
+        maven {
+            url = uri("https://central.sonatype.com/repository/maven-snapshots/")
+        }
+    }
+}
+```
+
+```kotlin
+// build.gradle.kts
+implementation("io.github.josuablejeru:reactive-multiplatform-charts:0.1.0-SNAPSHOT")
+```
+
 ## Usage
 - [LineChart](#linechart)
 
