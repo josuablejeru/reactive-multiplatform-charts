@@ -11,52 +11,46 @@ import io.github.josuablejeru.reactive_multiplatform_charts.charts.LineChart
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import kotlin.math.sin
 
-
 data class SensorReading(val x: Float, val y: Float)
 
-fun liveDataFlow(scope: CoroutineScope, invert: Boolean, offset: Float): SharedFlow<List<SensorReading>> {
-    val sharedFlow = MutableSharedFlow<List<SensorReading>>(replay = 1)
-    val points = mutableListOf<SensorReading>()
+fun liveDataFlow(scope: CoroutineScope, invert: Boolean, offset: Float): StateFlow<SensorReading> {
+    val flow = MutableStateFlow(SensorReading(0f, 0f)) // Initial dummy value
 
     scope.launch(Dispatchers.Default) {
         var currentX = 0f
-        while (true) {
-            delay(50) // faster updates
-            currentX += 5f
 
-            if (invert) {
-                points.add(
-                    SensorReading(
-                        x = currentX + offset,
-                        y = -(sin(currentX * 0.05f + offset) * 100f) + 150f // Sinus wave
-                    )
+        while (true) {
+            delay(50)
+            currentX += 5f
+            val point = if (invert) {
+                SensorReading(
+                    x = currentX + offset,
+                    y = -(sin(currentX * 0.05f + offset) * 100f) + 150f
                 )
             } else {
-                points.add(
-                    SensorReading(
-                        x = currentX + offset,
-                        y = (sin(currentX * 0.05f + offset) * 100f) + 150f // Sinus wave
-                    )
+                SensorReading(
+                    x = currentX + offset,
+                    y = (sin(currentX * 0.05f + offset) * 100f) + 150f
                 )
             }
-
-            sharedFlow.emit(points.toList())
+            flow.value = point
         }
     }
 
-    return sharedFlow
+    return flow
 }
 
 @Composable
 @Preview
 fun App() {
     val scope = rememberCoroutineScope()
+
     val flow1 = remember { liveDataFlow(scope, invert = false, offset = 0f) }
     val flow2 = remember { liveDataFlow(scope, invert = true, offset = 0f) }
     val flow3 = remember { liveDataFlow(scope, invert = false, offset = 7f) }
@@ -88,6 +82,7 @@ fun App() {
             ySelector = { it.y }
         ),
     )
+
     MaterialTheme {
         Surface(
             modifier = Modifier.fillMaxSize()

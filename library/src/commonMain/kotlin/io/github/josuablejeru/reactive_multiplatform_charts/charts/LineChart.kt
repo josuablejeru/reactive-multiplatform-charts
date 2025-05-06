@@ -8,7 +8,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import io.github.josuablejeru.reactive_multiplatform_charts.core.DataSeries
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 /**
@@ -43,19 +42,17 @@ fun <T> LineChart(
     modifier: Modifier = Modifier,
     visibleXRange: Float = 500f,
 ) {
-    val dataList = remember { mutableStateListOf<List<T>>() }
+    val dataList = remember { series.map { mutableStateListOf<T>() } }
 
     LaunchedEffect(series) {
-        dataList.clear()
         series.forEachIndexed { index, s ->
             launch {
-                s.flow.collectLatest { data ->
-                    if (dataList.size <= index) {
-                        repeat(index - dataList.size + 1) {
-                            dataList.add(emptyList())
-                        }
+                s.flow.collect { point ->
+                    dataList[index].add(point)
+                    // Optional: Trim old points to avoid memory issues
+                    if (dataList[index].size > 1000) {
+                        dataList[index].removeAt(0)
                     }
-                    dataList[index] = data
                 }
             }
         }

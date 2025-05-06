@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
  * Represents a continues Data stream
  */
 data class DataSeries<T>(
-    val flow: Flow<List<T>>,
+    val flow: Flow<T>,
     val color: Color,
     val xSelector: (T) -> Float,
     val ySelector: (T) -> Float
